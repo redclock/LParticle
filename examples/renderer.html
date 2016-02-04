@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>renderer</title>
+    <script type="text/javascript" src="../js/lufylegend-1.10.0.min.js"></script>
+    <script type="text/javascript" src="../js/lparticle.min.js"></script>
+</head>
+<body>
+<div>Comparison of different renderers.</div>
+<div id="legend">
+</div>
+<script>
+    LInit(1000/60, "legend", 800, 480, main);
+    var rootNode;
+
+    function main () {
+        rootNode = new LSprite();
+        addChild(rootNode);
+
+        // clear screen
+        rootNode.graphics.drawRect(1, "#000000", [0, 0, LGlobal.width, LGlobal.height], true, "#000000");
+
+
+        createParticle(80, 200, {name: "box"});
+        createParticle(240, 200, {name: "dot"});
+        createParticle(400, 200, {name: "dot_fade"});
+
+        var loader = new LLoader();
+        loader.addEventListener(LEvent.COMPLETE, function(event){
+            createParticle(560, 200, {name: "image", image: event.target});
+        });
+        loader.load("bird1.png", "bitmapData");
+
+        createParticle(720, 200, {name: "my_renderer"})
+
+    }
+
+    function createParticle(x, y, renderer) {
+        var pa = new LParticle.ParticleSystem(
+                {
+                    emitters: [
+                        {
+                            name: "infinite",
+                            rate: 10,
+                            life: [0.3, 2.7]
+                        }
+                    ],
+                    initializers: [
+                        {
+                            name: "radius",
+                            radius: [0, 2],
+                            speed: [10, 80]
+                        },
+                        {
+                            name: "force",
+                            x: 0,
+                            y: [170, 300]
+                        },
+                        {
+                            name: "rotation",
+                            angle: [0, 100]
+                        },
+                        {
+                            name: "color",
+                            color: [255, 180, 140, 1]
+                        }
+                    ],
+                    affectors: [
+                        {
+                            name: "move"
+                        },
+                        {
+                            name: "size",
+                            from: [8, 15],
+                            to: 0
+                        }
+                    ],
+                    renderers: [
+                        renderer
+                    ]
+                }
+        );
+        pa.x = x;
+        pa.y = y;
+        pa.blendMode = LBlendMode.LIGHTER;
+        rootNode.addChild(pa);
+
+        var label = new LTextField();
+        label.color = "#ffffff";
+        label.x = x;
+        label.y = 160;
+        label.text = renderer.name;
+        label.x = x - label.getWidth() / 2;
+
+        addChild(label);
+
+    }
+
+    // create a custom renderer: draw random characters
+    function MyRenderer() {
+        this.texts = "!@#$%^&*()_+-=|<>?[]".split("");
+    }
+
+    MyRenderer.prototype = {
+        initParticle: function (p) {
+            p.char = this.texts[(Math.random() * this.texts.length)|0];
+
+        },
+        drawParticle: function(ctx, p) {
+            rot = p.rotation;
+            size = p.size;
+            ctx.fillStyle = LParticle.colorUtils.colorToStyle(p.color);
+            if (rot) {
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.scale(p.size / 5, p.size / 5);
+                ctx.rotate(rot);
+                ctx.fillText(p.char, 0, 0);
+                ctx.restore();
+            }
+            else {
+                ctx.fillText(p.char, p.x, p.y);
+            }
+        }
+
+    };
+
+    LParticle.Renderer.my_renderer = MyRenderer;
+</script>
+</body>
+</html>

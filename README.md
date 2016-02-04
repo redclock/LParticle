@@ -1,2 +1,2 @@
 # LParticle
-HTML5 particle system based on Lufylegend
+HTML5 particle system based on Lufylegend engine
