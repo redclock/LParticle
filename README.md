@@ -15,7 +15,7 @@ fire effects.
 click to generate a spark effect, showing auto removing feature.
 * [renderer](http://redclock.github.io/LParticle/examples/renderer.html):
 same particle system with different renderers, showing how to create a custom renderer.
-* [tail](http://redclock.github.io/LParticle/examples/tail.html):
+* [trail](http://redclock.github.io/LParticle/examples/trail.html):
 tailing particle effect, showing attach_node_pos initializer.
 
 
@@ -38,6 +38,7 @@ There are two ways to use this library:
 The main class, `LParticle.ParticleSystem`, is derived from `LSprite`.
 Properties of LSprite such as x, y, scaleX, scaleY and blendMode, are available to ParticleSystem.
 You can add the particle system to any place in the scene graph.
+
 This particle system class is designed as a component-based pattern.
 An instance of `LParticle.ParticleSystem` keeps four types of components:
 
