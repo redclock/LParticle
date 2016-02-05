@@ -16,7 +16,7 @@ click to generate a spark effect, showing auto removing feature.
 * [renderer](http://redclock.github.io/LParticle/examples/renderer.html):
 same particle system with different renderers, showing how to create a custom renderer.
 * [tail](http://redclock.github.io/LParticle/examples/tail.html):
-tailing particle effect, showing attach_to_node initializer.
+tailing particle effect, showing attach_node_pos initializer.
 
 
 ## Usage
