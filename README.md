@@ -114,7 +114,6 @@ particleObject.removeOnFinish = false;
         life: 0.5     // particle life, in seconds
     }
 
-
     {
         name: "infinite"    // emit particles continuously
         rate: 100           // emission per second
@@ -128,7 +127,6 @@ particleObject.removeOnFinish = false;
         radius: 10          // radius of the circle
         speed: 5            // speed of particles, positive is towards outside of the circle
     }
-
 
     {
         name: "position"    // initialize position
@@ -202,16 +200,19 @@ particleObject.removeOnFinish = false;
 ### Renderers
 
     {
-        name: box           // draw a rectangle for each particle
+        name: "box"           // draw a rectangle for each particle
     }
+
     {
-        name: dot           // draw a dot for each particle
+        name: "dot"           // draw a dot for each particle
     }
+
     {
-        name: dot_fade      // draw a dot for each particle, with radial gradient
+        name: "dot_fade"      // draw a dot for each particle, with radial gradient
     }
+
     {
-        name: image         // draw an image for each particle
+        name: "image"         // draw an image for each particle
         image: img          // image object
     }
 
@@ -266,7 +267,7 @@ For affector:
     // register
     LParticle.Affector.my_affector = MyAffector
 
-For affector:
+For renderer:
 
     // system: the particle system object,
     // param: properties in description object

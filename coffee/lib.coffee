@@ -12,6 +12,6 @@ if typeof define == 'function' and define.amd
     define -> LParticle
 else if typeof module == 'object' and module.exports
     module.exports = LParticle
-else
-    global.LParticle = LParticle
+
+global.LParticle = LParticle
 
