@@ -21,7 +21,7 @@ class Initializer.radius
         p.dx = cosTheta * speed
         p.dy = sinTheta * speed
 
-class Initializer.box
+class Initializer.position
     constructor: (system, params)->
         @xVal = rangeValue params.x
         @yVal = rangeValue params.y
