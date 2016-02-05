@@ -69,7 +69,10 @@ class Affector.alpha
 
     updateParticle: (dt, p) ->
         t = p.life / p.maxLife
-        p.alpha = p.alphaFrom * t + p.alphaTo * (1 - t)
+        alpha = p.alphaFrom * t + p.alphaTo * (1 - t)
+        if p.color
+            p.color[3] = alpha
+        p.alpha = alpha
 
 class Affector.rotation
     constructor: (system, params) ->

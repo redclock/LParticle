@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>fire</title>
+    <script type="text/javascript" src="../js/lufylegend-1.10.0.min.js"></script>
+    <script type="text/javascript" src="../js/lparticle.js"></script>
+</head>
+<body>
+<div id="legend">
+</div>
+<script>
+    LInit(1000/60, "legend", 800, 480, main);
+
+    function main () {
+        var rootNode = new LSprite();
+        addChild(rootNode);
+
+        // clear screen
+        rootNode.graphics.drawRect(1, "#000000", [0, 0, LGlobal.width, LGlobal.height], true, "#000000");
+
+        createParticle(200, 300, [205, 200, 100, 1], [100, 20, 0, 0]);
+        createParticle(400, 300, [100, 200, 205, 1], [50, 0, 100, 0]);
+        createParticle(600, 300, [200, 230, 100, 1], [10, 150, 0, 0]);
+    }
+
+    function createParticle(x, y, color1, color2) {
+        var pa = new LParticle.ParticleSystem(
+                {
+                    emitters: [
+                        {
+                            name: "infinite",
+                            rate: 20,
+                            life: [0.5, 2.5]
+                        }
+                    ],
+                    initializers: [
+                        {
+                            name: "radius",
+                            radius: [0, 2],
+                            speed: [0, 20]
+                        },
+                        {
+                            name: "delta_speed",
+                            x: [-3, 3],
+                            y: [-50,-70]
+                        }
+                    ],
+                    affectors: [
+                        {
+                            name: "move"
+                        },
+                        {
+                            name: "color",
+                            from: color1,
+                            to: color2
+                        },
+                        {
+                            name: "size",
+                            from: [10, 30],
+                            to: 25
+                        }
+                    ],
+                    renderers: [
+                        {
+                            name: "dot_fade"
+                        }
+                    ]
+                }
+        );
+        pa.x = x;
+        pa.y = y;
+        pa.blendMode = LBlendMode.LIGHTER;
+        addChild(pa);
+
+    }
+</script>
+</body>
+</html>
