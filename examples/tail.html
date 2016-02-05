@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>tail</title>
+    <script type="text/javascript" src="../js/lufylegend-1.10.0.min.js"></script>
+    <script type="text/javascript" src="../js/lparticle.js"></script>
+</head>
+<body>
+<div id="legend">
+</div>
+<script>
+    LInit(1000/60, "legend", 800, 480, main);
+
+    function main () {
+        var rootNode = new LSprite();
+        addChild(rootNode);
+
+        // clear screen
+        rootNode.graphics.drawRect(1, "#000000", [0, 0, LGlobal.width, LGlobal.height], true, "#000000");
+
+
+        var mouseNode = new LSprite();
+        addChild(mouseNode);
+        var pa = createParticle(mouseNode);
+        pa.blendMode = LBlendMode.LIGHTER;
+        addChild(pa);
+
+        rootNode.addEventListener(LMouseEvent.MOUSE_MOVE,
+            function(evt){
+                mouseNode.x = evt.offsetX;
+                mouseNode.y = evt.offsetY;
+            }
+        )
+    }
+
+    function createParticle(node) {
+        return new LParticle.ParticleSystem(
+                {
+                    emitters: [
+                        {
+                            name: "infinite",
+                            rate: 100,
+                            life: [0.2, 0.5]
+                        }
+                    ],
+                    initializers: [
+                        {
+                            name: "attach_node_pos",
+                            node: node
+                        },
+                        {
+                            name: "radius",
+                            radius: 0,
+                            speed: [0, 100]
+                        },
+                        {
+                            name: "force",
+                            x: [-1, 1],
+                            y: 10
+                        },
+                        {
+                            name: "color",
+                            color: [100, 200, 240, 1]
+                        }
+                    ],
+                    affectors: [
+                        {
+                            name: "move"
+                        },
+                        {
+                            name: "size",
+                            from: [2, 10],
+                            to: 0
+                        },
+                        {
+                            name: "alpha",
+                            from: 1,
+                            to: 0.5
+                        }
+                    ],
+                    renderers: [
+                        {
+                            name: "dot_fade"
+                        }
+                    ]
+                }
+        );
+    }
+</script>
+</body>
+</html>

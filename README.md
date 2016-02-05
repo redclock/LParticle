@@ -1,4 +1,4 @@
-# LParticle
+# LParticle.js
 
 A component-based particle system library for HTML5 game engine [Lufylegend.js](https://github.com/lufylegend/lufylegend.js).
 
@@ -6,6 +6,18 @@ A component-based particle system library for HTML5 game engine [Lufylegend.js](
 I'm writing HTML5 games with Lufylegend.js, which is a powerful and easy-to-use HTML5 game engine.
 But this engine does not have a convenience particle systems class.
 So I wrote this LParticle.js to create particle effects in HTML5 games. Hope it can help you.
+
+### Example Pages
+
+* [fire](http://redclock.github.io/LParticle/examples/fire.html):
+fire effects.
+* [spark](http://redclock.github.io/LParticle/examples/spark.html):
+click to generate a spark effect, showing auto removing feature.
+* [renderer](http://redclock.github.io/LParticle/examples/renderer.html):
+same particle system with different renderers, showing how to create a custom renderer.
+* [tail](http://redclock.github.io/LParticle/examples/tail.html):
+tailing particle effect, showing attach_to_node initializer.
+
 
 ## Usage
 There are two ways to use this library:
