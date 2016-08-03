@@ -1,3 +1,5 @@
+[中文版](https://github.com/redclock/LParticle/blob/master/README_CHS.md)
+
 # LParticle.js
 
 A component-based particle system library for HTML5 game engine [Lufylegend.js](https://github.com/lufylegend/lufylegend.js).
