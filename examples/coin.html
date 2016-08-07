@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>coin</title>
+    <script type="text/javascript" src="../js/lufylegend-1.10.0.min.js"></script>
+    <script type="text/javascript" src="../js/lparticle.min.js"></script>
+</head>
+<body>
+<div id="legend">
+</div>
+<script>
+    LInit(1000/60, "legend", 800, 480, main);
+    var FLOOR_Y = 300;
+
+    function main () {
+        var rootNode = new LSprite();
+        addChild(rootNode);
+
+        // clear screen
+        rootNode.graphics.drawRect(1, "#000000", [0, 0, LGlobal.width, LGlobal.height], true, "#000000");
+        rootNode.graphics.drawRect(1, "#ffffff", [0, FLOOR_Y + 5, LGlobal.width, LGlobal.height - FLOOR_Y], true, "#337799");
+
+        var countLabel = new LTextField();
+        countLabel.color = "#ffffff";
+        countLabel.x = 10;
+        countLabel.y = 10;
+        addChild(countLabel);
+
+        rootNode.addEventListener(LEvent.ENTER_FRAME,
+            function() {
+                countLabel.text = "live particle systems: " + rootNode.childList.length
+            }
+        );
+        var loadedImg = null;
+        var loader = new LLoader();
+        loader.addEventListener(LEvent.COMPLETE, function(event){
+            loadedImg = event.target;
+        });
+        loader.load("coin.png", "bitmapData");
+
+
+        rootNode.addEventListener(LMouseEvent.MOUSE_DOWN,
+            function(evt){
+                if (!loadedImg)
+                    return;
+                // create particle with random color
+                if (evt.offsetY < FLOOR_Y) {
+                    var pa = createParticle(loadedImg, FLOOR_Y - evt.offsetY);
+                    pa.x = evt.offsetX;
+                    pa.y = evt.offsetY;
+                    rootNode.addChild(pa);
+                }
+            }
+        );
+
+        function BounceAffector(system, params) {
+            this.y = params.y;
+            this.fade = params.fade;
+        }
+        BounceAffector.prototype =
+        {
+            initParticle: function(p) {
+
+            },
+            updateParticle: function(dt, p) {
+                if (p.y > this.y && p.dy > 0) {
+                    p.dy = -p.dy * this.fade;
+                    p.dx = p.dx * this.fade;
+                }
+            }
+        };
+        LParticle.Affector.bounce = BounceAffector;
+    }
+
+    function createParticle(img, y) {
+        return new LParticle.ParticleSystem(
+                {
+                    emitters: [
+                        {
+                            name: "once",
+                            count: 5,
+                            life: 3
+                        }
+                    ],
+                    initializers: [
+//                        {
+//                            name: "radius",
+//                            radius: [0, 2],
+//                            speed: [50, 150]
+//                        },
+                        {
+                            name: "force",
+                            x: 0,
+                            y: 700
+                        },
+                        {
+                            name: "delta_speed",
+                            x: [-100, 100],
+                            y: [-200, -350]
+                        }
+                    ],
+                    affectors: [
+                        {
+                            name: "move"
+                        },
+                        {
+                            name: "size",
+                            from: 10,
+                            to: 10
+                        },
+                        {
+                            name: "alpha",
+                            from: 3,
+                            to: 0
+                        },
+                        {
+                            name: "bounce",
+                            y: y,
+                            fade: 0.6
+                        }
+                    ],
+                    renderers: [
+                        {
+                            name: "image",
+                            image: img
+                        }
+                    ]
+                }
+        );
+    }
+</script>
+</body>
+</html>
