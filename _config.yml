@@ -1,0 +1,8 @@
+title: LParticle
+description: HTML5 particle system based on Lufylegend
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-minimal
+
+gems:
+  - jekyll-mentions
